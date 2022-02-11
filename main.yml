@@ -1,0 +1,51 @@
+#!/usr/bin/env ansible-playbook
+
+# Copyright 2021 Anthony Perkins
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+- name: Set up a Fedora VM host with basic gui
+  hosts: all
+  tasks:
+  - name: Install packages
+    become: true
+    ansible.builtin.dnf:
+      name: '{{ packages }}'
+      state: present
+    vars:
+      packages:
+        - "@virtualization-headless"
+        - cockpit-machines
+        - dejavu-fonts-all
+        - python3-gobject
+        - webkit2gtk3
+        - weston
+  - name: Create ~/.bashrc.d directory
+    ansible.builtin.file:
+      path: "{{ ansible_env.HOME }}/.bashrc.d"
+      state: directory
+      mode: '0755'
+  - name: Create ~/.config directory
+    ansible.builtin.file:
+      path: "{{ ansible_env.HOME }}/.config"
+      state: directory
+      mode: '0755'
+  - name: Copy weston.ini
+    ansible.builtin.copy:
+      src: weston.ini
+      dest: "{{ ansible_env.HOME }}/.config/weston.ini"
+  - name: Copy bashrc login text
+    ansible.builtin.copy:
+      src: vmhost
+      dest: "{{ ansible_env.HOME }}/.bashrc.d/vmhost"
