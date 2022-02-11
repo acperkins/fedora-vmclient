@@ -29,6 +29,7 @@
         - cockpit-machines
         - dejavu-fonts-all
         - python3-gobject
+        - virt-viewer
         - webkit2gtk3
         - weston
   - name: Create ~/.bashrc.d directory
