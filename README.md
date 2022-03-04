@@ -1,4 +1,4 @@
-# Fedora VM host
+# Fedora VM client
 
 Use Ansible to set up a Fedora Virtual Machine client with a basic GUI for
 management.
