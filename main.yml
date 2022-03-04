@@ -15,7 +15,7 @@
 # limitations under the License.
 
 ---
-- name: Set up a Fedora VM host with basic gui
+- name: Set up a Fedora VM client with basic gui
   hosts: all
   tasks:
   - name: Install packages
@@ -25,11 +25,10 @@
       state: present
     vars:
       packages:
-        - "@virtualization-headless"
         - adobe-source-code-pro-fonts
-        - cockpit-machines
         - dejavu-fonts-all
         - gnome-terminal
+        - libvirt-client
         - python3-gobject
         - virt-viewer
         - webkit2gtk3
@@ -50,5 +49,5 @@
       dest: "{{ ansible_env.HOME }}/.config/weston.ini"
   - name: Copy bashrc login text
     ansible.builtin.copy:
-      src: vmhost
-      dest: "{{ ansible_env.HOME }}/.bashrc.d/vmhost"
+      src: vmclient
+      dest: "{{ ansible_env.HOME }}/.bashrc.d/vmclient"

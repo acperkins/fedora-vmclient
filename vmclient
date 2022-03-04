@@ -1,7 +1,7 @@
 case "$-" in
 *i*)
 	# Shell is interactive.
-	export LIBVIRT_DEFAULT_URI="qemu:///system"
+	export LIBVIRT_DEFAULT_URI="qemu+ssh://vmhost/system"
 	echo '========================================================'
 	echo '=== Launch a graphical display with `weston-launch`. ==='
 	echo '===         Exit it with Ctrl+Alt+Backspace.         ==='
